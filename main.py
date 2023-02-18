@@ -26,4 +26,11 @@ async def shutdown(ctx):
     print("---------------------------------------------")
     await ctx.bot.close()
 
+@client.command()
+async def msg(ctx, user:discord.Member, *, message=None):
+    message = "Rohits a bitch"
+    embed = discord.Embed(title=message)
+    await user.send(embed=embed)
+    
+
 client.run(TOKEN)
