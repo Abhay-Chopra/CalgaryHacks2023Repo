@@ -20,8 +20,10 @@ async def shutdown(ctx):
     
 @client.event
 async def on_message(message):
-    if message.author == client.user or message:
+    if message.author == client.user and:
         return
-    print("message sent")
+    print("message thing:")
+    print(message.content)
+    print("\n")
 
 client.run(TOKEN)
