@@ -1,8 +1,11 @@
 import discord
 import os
 from secretTokens import TOKEN
+intents = discord.Intents.default()
+intents.messages = True
+intents.message_content = True
 
-client = discord.Client(intents=discord.Intents.default())
+client = discord.Client(intents = intents)
 
 @client.event
 async def on_ready():
@@ -10,10 +13,13 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.author == client.user or message:
+    if message.author == client.user:
         return
-    print("message sent")
+    print("message thing:")
+    print(message.content)
+    print("\n")
 
+    
 
 
 client.run(TOKEN)
