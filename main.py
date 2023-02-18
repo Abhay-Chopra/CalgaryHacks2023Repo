@@ -5,7 +5,7 @@ intents = discord.Intents.default()
 intents.messages = True
 intents.message_content = True
 
-client = discord.Client(intents = intents)
+client = discord.Client(command_prefix = "!",intents = intents)
 
 @client.event
 async def on_ready():
@@ -13,7 +13,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.author == client.user:
+    if message.author == client.user and:
         return
     print("message thing:")
     print(message.content)
