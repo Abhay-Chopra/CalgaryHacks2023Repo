@@ -12,18 +12,18 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(client))
     print("---------------------------------------------")
     
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    print("message thing:")
+    print(message.content)
+    print("\n")
+
 @client.command()
 async def shutdown(ctx):
     print("Shutting down Clubot")
     print("---------------------------------------------")
     await ctx.bot.close()
-    
-@client.event
-async def on_message(message):
-    if message.author == client.user and:
-        return
-    print("message thing:")
-    print(message.content)
-    print("\n")
 
 client.run(TOKEN)
