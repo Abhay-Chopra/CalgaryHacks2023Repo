@@ -17,7 +17,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     if message.content[0] == "!":
-        client.process_commands(message)
+        await client.process_commands(message)
         return
     
     print("message thing:")
