@@ -1,5 +1,6 @@
 import discord
 import os
+from secretTokens import TOKEN
 
 client = discord.Client(intents=discord.Intents.default())
 
@@ -7,4 +8,4 @@ client = discord.Client(intents=discord.Intents.default())
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
 
-client.run('MTA3NjU3OTc0MDUzNTc1MDY2Ng.GgLLbJ.Yv5DyJMNqdskiAb9R_eyf2MzZ29wQuFk6VS-SQ')
+client.run(TOKEN)
