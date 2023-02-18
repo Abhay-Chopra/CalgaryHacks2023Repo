@@ -19,3 +19,13 @@ async def shutdown(ctx):
     await ctx.bot.close()
     
 client.run(TOKEN) 
+
+@client.event
+async def on_message(message):
+    if message.author == client.user or message:
+        return
+    print("message sent")
+
+
+
+client.run(TOKEN)
