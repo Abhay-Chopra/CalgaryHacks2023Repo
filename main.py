@@ -13,6 +13,7 @@ intents.message_content = True
 intents.guild_scheduled_events = True
 intents.guilds = True
 client = commands.Bot(command_prefix="!", intents = intents)
+client.remove_command('help')
 text_channel_list = []
 channel_name = ["announcement", "announcements"]
 
@@ -103,6 +104,37 @@ async def announcement(message, file=None):
         if user != client.user:
             embed = discord.Embed(title = "Announcement from: " + message.guild.name, description = message.content)
             await user.send(embed=embed)
+
+@client.group(invoke_without_command=True)
+async def help(ctx):
+    help = discord.Embed(title= "Help", description="Use !help <<command>> for detailed help about a command. Use an ! at the start of your CluBot command.")
+    help.add_field(name="Moderation", value="msg | shutdown | announce | schedule")
+    await ctx.send(embed = help)
+
+
+@help.command()
+async def msg(ctx):
+    msg = discord.Embed(title= "msg", description="Send a message through CluBot to a specific user.")
+    msg.add_field(name="SYNTAX: ", value="!msg [user]")
+    await ctx.send(embed = msg)
+
+@help.command()
+async def shutdown(ctx):
+    shut = discord.Embed(title= "shutdown", description="Shut down CluBot.")
+    shut.add_field(name="SYNTAX: ", value="!shutdown")
+    await ctx.send(embed = shut)
+
+@help.command()
+async def announce(ctx):
+    announce = discord.Embed(title= "announce", description="Shut down CluBot.")
+    announce.add_field(name="SYNTAX: ", value="Automatic when message is sent in an announcement channel, sent to all users who have opted in to CluBot.")
+    await ctx.send(embed = announce)
+
+@help.command()
+async def schedule(ctx):
+    schedule = discord.Embed(title= "schedule", description="Schedule a meeting and send an iCal file with CluBot.")
+    schedule.add_field(name="SYNTAX: ", value="Automatic when Discord event is created, sent to all users who have opted in to CluBot.")
+    await ctx.send(embed = schedule)
 
 @client.command()
 async def create_form(ctx):
