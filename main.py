@@ -23,8 +23,8 @@ async def on_ready():
 
 
 @client.event
-async def on_guild_join():
-    form = await create_text_channel("form")
+async def on_guild_join(guild):
+    form = await guild.create_text_channel("form")
     
     embed = discord.Embed(title = "Opt in for Anouncment DM's ",description="Would you like to opt in to DM notifications?")
     msg = form.send(embed)
