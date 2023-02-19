@@ -12,6 +12,7 @@ channel_name = ["announcement", "announcements"]
 
 @client.event
 async def on_ready():
+    print("---------------------------------------------")
     print('We have logged in as {0.user}'.format(client))
     print("---------------------------------------------")
     for guild in client.guilds:
@@ -39,6 +40,7 @@ async def on_message(message):
 
 @client.command()
 async def shutdown(ctx):
+    print("---------------------------------------------")
     print("Shutting down Clubot")
     print("---------------------------------------------")
     await ctx.bot.close()
