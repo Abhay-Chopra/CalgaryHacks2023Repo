@@ -28,23 +28,41 @@ async def on_ready():
 @client.event
 async def on_guild_join(guild):
     form = await guild.create_text_channel("form")
+    guild.create_role(name="opted in")
     
     embed = discord.Embed(title = "Opt in for Anouncment DM's ",description="Would you like to opt in to DM notifications?")
-    msg = form.send(embed)
-    msg.add_reaction("\u2705")
-    msg.add_reaction("\u274E")
+    msg = await form.send(embed=embed)
+    await msg.add_reaction("✅")
+   
 
 
     
 @client.event
 async def on_raw_reaction_add(ctx):
-    g = client.get_guild(ctx.guild_id)
-    if ctx.channel_id != discord.utils.get(g.channels, name="form").id:
+    g =  client.get_guild(ctx.guild_id)
+    role = discord.utils.get(g.roles, name="opted in")
+    
+    if ctx.channel_id != discord.utils.get(g.channels, name="form").id or ctx.emoji.name != "✅":
+        print(ctx.emoji.name)
         return
 
     u = client.get_user(ctx.user_id)
-       
+    client.assign_role(u, role)
     
+    print(u.name + " reacted")
+    
+@client.event
+async def on_raw_reaction_remove(ctx):
+    g =  client.get_guild(ctx.guild_id)
+    role = discord.utils.get(g.roles, name="opted in")
+    
+    if ctx.channel_id != discord.utils.get(g.channels, name="form").id or ctx.emoji.name != "✅":
+        print(ctx.emoji.name)
+        return
+
+    u = client.get_user(ctx.user_id)
+    client.remove_role(u, role)
+
 
 @client.event
 async def on_message(message):
