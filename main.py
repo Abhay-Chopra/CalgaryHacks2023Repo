@@ -27,6 +27,8 @@ async def on_ready():
         for channel in guild.text_channels:
             text_channel_list.append(channel)
 
+    
+
 
 @client.event
 async def on_guild_join(guild):
@@ -44,14 +46,18 @@ async def on_guild_join(guild):
 async def on_raw_reaction_add(ctx):
     g =  client.get_guild(ctx.guild_id)
     role = discord.utils.get(g.roles, name="opted in")
-    
+
+    if role == None:
+        await g.create_role(name="opted in")
+        role = discord.utils.get(g.roles, name="opted in")
+
     if ctx.channel_id != discord.utils.get(g.channels, name="form").id or ctx.emoji.name != "✅":
         print(ctx.emoji.name)
         return
 
  
     u= discord.utils.get(g.members, id=ctx.user_id)
-    u.member.assign_roles(role)
+    await u.add_roles(role)
   
     
     print(u.name + " reacted")
@@ -60,14 +66,18 @@ async def on_raw_reaction_add(ctx):
 async def on_raw_reaction_remove(ctx):
     g =  client.get_guild(ctx.guild_id)
     role = discord.utils.get(g.roles, name="opted in")
-    
+    print(role)
+    if role == None:
+        await g.create_role(name="opted in")
+        role = discord.utils.get(g.roles, name="opted in")
+
     if ctx.channel_id != discord.utils.get(g.channels, name="form").id or ctx.emoji.name != "✅":
         print(ctx.emoji.name)
         return
 
 
     u= discord.utils.get(g.members, id=ctx.user_id)
-    u.member.remove_roles(role)
+    await u.remove_roles(role)
 
 
 @client.event
@@ -77,16 +87,15 @@ async def on_message(message):
     if message.content[0] == "!":
         await client.process_commands(message)
         return
-    for channel in text_channel_list:
-        for cname in channel_name:
-            if channel.name == cname:
-                announcement_channel = channel
-    if message.channel == announcement_channel:
-        await announcement(message)
-    else:
-        print("message thing:")
-        print(message.content)
-        print("\n")
+    
+    # for channel in text_channel_list:
+    #     for cname in channel_name:
+    #         if channel.name == cname:
+    #             announcement_channel = channel
+    if message.channel.name != "announcements":
+        return
+    await announcement(message)
+    
 
 #TODO Check Permissions for shutdown command
 @client.command()
@@ -166,6 +175,10 @@ async def create_form(ctx):
     msg = await form.send(embed=embed)
     await msg.add_reaction("\u2705")
     await msg.add_reaction("\u274E")
+
+@client.command()
+async def create_announcments_channel(ctx):
+    await ctx.guild.create_text_channel("announcements")
     
 
 client.run(TOKEN)
