@@ -10,6 +10,7 @@ intents.messages = True
 intents.members = True
 intents.message_content = True
 intents.guild_scheduled_events = True
+intents.guilds = True
 client = commands.Bot(command_prefix="!", intents = intents)
 text_channel_list = []
 channel_name = ["announcement", "announcements"]
@@ -23,7 +24,28 @@ async def on_ready():
         for channel in guild.text_channels:
             text_channel_list.append(channel)
 
+
+@client.event
+async def on_guild_join(guild):
+    form = await guild.create_text_channel("form")
     
+    embed = discord.Embed(title = "Opt in for Anouncment DM's ",description="Would you like to opt in to DM notifications?")
+    msg = form.send(embed)
+    msg.add_reaction("\u2705")
+    msg.add_reaction("\u274E")
+
+
+    
+@client.event
+async def on_raw_reaction_add(ctx):
+    g = client.get_guild(ctx.guild_id)
+    if ctx.channel_id != discord.utils.get(g.channels, name="form").id:
+        return
+
+    u = client.get_user(ctx.user_id)
+       
+    
+
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -74,5 +96,14 @@ async def announcement(message):
             embed = discord.Embed(title= "😎 " +message.guild.name+ " 😎", description=message.content)
             await user.send(embed=embed)
 
+@client.command()
+async def create_form(ctx):
+    form = await ctx.guild.create_text_channel("form")
+    
+    embed = discord.Embed(title = "Opt in for Anouncment DM's ",description="Would you like to opt in to DM notifications?")
+    msg = await form.send(embed=embed)
+    await msg.add_reaction("\u2705")
+    await msg.add_reaction("\u274E")
+    
 
 client.run(TOKEN)
