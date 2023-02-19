@@ -94,6 +94,7 @@ async def on_message(message):
     #             announcement_channel = channel
     if message.channel.name != "announcements":
         return
+    
     await announcement(message)
     
 
@@ -130,9 +131,11 @@ async def on_scheduled_event_create(event:discord.ScheduledEvent):
                 await user.send(file=file)
     
 @client.event
-async def announcement(message, file=None):  
+async def announcement(message, file=None):
+    role =discord.utils.get(message.guild.roles, name="opted in")  
     for user in message.guild.members:
-        if user != client.user:
+        if user != client.user and user.get_role(role.id):
+            discord.utils.get(message.guild.roles, name="opted in")
             embed = discord.Embed(title = "Announcement from: " + message.guild.name, description = message.content)
             await user.send(embed=embed)
 
