@@ -83,6 +83,8 @@ async def msg(ctx, user:discord.Member, *, message):
 async def on_scheduled_event_create(event:discord.ScheduledEvent):
     mst = timezone('MST')
     cal = ical.iCal()
+    del(cal)
+    cal = ical.iCal()
     
     start_date = "%d/%d/%d" % (event.start_time.year, event.start_time.month, event.start_time.day)
     end_date = "%d/%d/%d" % (event.end_time.year, event.end_time.month, event.end_time.day)
@@ -90,14 +92,18 @@ async def on_scheduled_event_create(event:discord.ScheduledEvent):
     end_time = "%d:%d" % (event.end_time.astimezone(tz = mst).hour, event.end_time.astimezone(tz = mst).minute)
     
     bin_file = cal.make_event(event.name, event.description, start_time, end_time, start_date, end_date)
-    if bin_file is not None:
-        for user in event.guild.members:
-            if user != client.user:
-                out = BytesIO(bin_file)
-                file = discord.File(fp= out, filename = event.name + ".ics")
-                out.flush()
-                await user.send(file=file)
-    
+    for user in event.guild.members:
+        if bin_file is None: 
+            break
+        if user != client.user:
+            out = BytesIO(bin_file)
+            del(out)
+            out = BytesIO(bin_file)
+            file = discord.File(fp = out, filename = event.name + ".ics")
+            out.flush()
+            out.seek(0)
+            await user.send(file=file)
+
 @client.event
 async def announcement(message, file=None):  
     for user in message.guild.members:

@@ -12,6 +12,8 @@ class iCal:
     #date format yyyy/mm/dd, time is MST and 24 hour format
     def make_event(self, name, description, startTime, endTime, startDate, endDate):
         event = Event()
+        del(event)
+        event = Event()
         startD = startDate.split("/")
         if((endDate is None)):
             endD = startDate.split("/")
