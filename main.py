@@ -12,6 +12,7 @@ intents.members = True
 intents.message_content = True
 intents.guild_scheduled_events = True
 intents.guilds = True
+
 client = commands.Bot(command_prefix="!", intents = intents)
 client.remove_command('help')
 text_channel_list = []
@@ -48,8 +49,10 @@ async def on_raw_reaction_add(ctx):
         print(ctx.emoji.name)
         return
 
-    u = client.get_user(ctx.user_id)
-    client.assign_role(u, role)
+ 
+    u= discord.utils.get(g.members, id=ctx.user_id)
+    u.member.assign_roles(role)
+  
     
     print(u.name + " reacted")
     
@@ -62,8 +65,9 @@ async def on_raw_reaction_remove(ctx):
         print(ctx.emoji.name)
         return
 
-    u = client.get_user(ctx.user_id)
-    client.remove_role(u, role)
+
+    u= discord.utils.get(g.members, id=ctx.user_id)
+    u.member.remove_roles(role)
 
 
 @client.event
