@@ -116,8 +116,7 @@ async def on_scheduled_event_create(event:discord.ScheduledEvent):
     mst = timezone('MST')
     cal = ical.iCal()
     
-    #embed = discord.Embed(title = event.guild.name": " + event.name)
-    #await user.send(embed=embed)
+    
     start_date = "%d/%d/%d" % (event.start_time.year, event.start_time.month, event.start_time.day)
     end_date = "%d/%d/%d" % (event.end_time.year, event.end_time.month, event.end_time.day)
     start_time = "%d:%d" % (event.start_time.astimezone(tz = mst).hour, event.start_time.astimezone(tz = mst).minute)
@@ -130,7 +129,10 @@ async def on_scheduled_event_create(event:discord.ScheduledEvent):
                 out = BytesIO(bin_file)
                 file = discord.File(fp= out, filename = event.name + ".ics")
                 out.flush()
-                await user.send(file=file)
+                
+                embed = discord.Embed(title = event.guild.name+": " + event.name, description="on: " + start_date)
+                await user.send(embed=embed,file=file,)
+                #await user.send(file=file)
     
 @client.event
 async def announcement(message, file=None):
