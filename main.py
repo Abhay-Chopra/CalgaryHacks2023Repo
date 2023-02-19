@@ -4,6 +4,7 @@ import datetime
 from secretTokens import TOKEN
 from discord.ext import commands
 from pytz import timezone
+from io import BytesIO
 
 intents = discord.Intents.default()
 intents.messages = True
@@ -64,7 +65,7 @@ async def on_message(message):
         print(message.content)
         print("\n")
 
-
+#TODO Check Permissions for shutdown command
 @client.command()
 async def shutdown(ctx):
     print("---------------------------------------------")
@@ -87,13 +88,20 @@ async def on_scheduled_event_create(event:discord.ScheduledEvent):
     start_time = "%d:%d" % (event.start_time.astimezone(tz = mst).hour, event.start_time.astimezone(tz = mst).minute)
     end_time = "%d:%d" % (event.end_time.astimezone(tz = mst).hour, event.end_time.astimezone(tz = mst).minute)
     
-    file = cal.make_event(event.name, event.description, start_time, end_time, start_date, end_date)
+    bin_file = cal.make_event(event.name, event.description, start_time, end_time, start_date, end_date)
+    if bin_file is not None:
+        for user in event.guild.members:
+            if user != client.user:
+                out = BytesIO(bin_file)
+                file = discord.File(fp= out, filename = event.name + ".ics")
+                out.flush()
+                await user.send(file=file)
     
 @client.event
-async def announcement(message):  
+async def announcement(message, file=None):  
     for user in message.guild.members:
         if user != client.user:
-            embed = discord.Embed(title= "😎 " +message.guild.name+ " 😎", description=message.content)
+            embed = discord.Embed(title = "Announcement from: " + message.guild.name, description = message.content)
             await user.send(embed=embed)
 
 @client.command()
