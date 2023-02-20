@@ -1,4 +1,4 @@
-# CalgaryHacks2023Repo
+# CluBot
 
 to use the bot:
 1. run the main.py
