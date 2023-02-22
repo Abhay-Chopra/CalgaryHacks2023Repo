@@ -25,7 +25,7 @@ DISCORD_TOKEN=your-bot-token-goes-here
 Run the bot by executing the following command in your terminal:
 
 ```python
-python bot.py
+python main.py
 ```
 # Usage
 To start using CluBot, simply react with the corresponding emoji on the server form to opt into notifications. The bot will then send you private messages when new announcements or events are posted in the server.
