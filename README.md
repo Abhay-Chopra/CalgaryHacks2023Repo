@@ -2,7 +2,7 @@
 CluBot is a Discord bot that scrapes university club announcements and sends them to users as private messages. The bot can also generate .ics files when community events are created in the Discord server. CluBot only sends messages to people who opt into the notifications using reactions to a server form.
 
 ## Getting Started
-To use CluBot, you will need to have Python, the icalendar library, and the discord.py library installed on your computer.
+To use CluBot, you will need to have Python, the icalendar library, and the discord library installed on your computer.
 
 Download and install Python from the official website: https://www.python.org/downloads/
 <br><br>
