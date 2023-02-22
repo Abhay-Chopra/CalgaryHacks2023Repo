@@ -13,9 +13,8 @@ Install the discord.py library by running the following command in your terminal
 Clone the CluBot repository to your local machine:
 
 ```git 
-git clone https://github.com/YOUR_USERNAME/CluBot.git
+git clone https://github.com/YOUR_USERNAME/CluBot-Discord-Bot.git
 ```
-<br>
 Create a Discord bot and invite it to your server. Follow the instructions in the Discord Developer Portal to create a new bot and get its token.
 
 Set up the necessary environment variables. Create a .env file in the root directory of the project and add the following variables:
@@ -23,13 +22,11 @@ Set up the necessary environment variables. Create a .env file in the root direc
 ```python
 DISCORD_TOKEN=your-bot-token-goes-here
 ```
-<br>
 Run the bot by executing the following command in your terminal:
 
 ```python
 python bot.py
 ```
-<br>
 # Usage
 To start using CluBot, simply react with the corresponding emoji on the server form to opt into notifications. The bot will then send you private messages when new announcements or events are posted in the server.
 
