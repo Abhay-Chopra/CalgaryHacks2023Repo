@@ -44,3 +44,11 @@ During the development of CluBot, I learned several new skills and concepts, inc
 4) Writing modular code: I learned about the benefits of writing modular code and breaking down a large project into smaller, more manageable components. This made it easier to test and debug individual parts of the bot and made it more extensible for future development.<br>
 5) Implementing error handling: I learned about the importance of implementing error handling in a bot to ensure it is robust and can handle unexpected input or errors. I used try-except blocks and logging to catch and handle errors in CluBot.<br>
 6) Understanding permissions: I gained a better understanding of the different levels of permissions in Discord and how they can be used to control access to different parts of a server. I also learned about the various types of Discord roles and how they can be used to grant permissions to users.
+
+# Future Features
+We have several features in mind for CluBot in the future. These include:
+
+- Adding support for more universities and clubs.
+- Allowing users to set custom notification preferences, such as which types of announcements they want to receive.
+- Adding the ability to automatically create events in the Discord server based on community event information scraped from external sources.
+- Implementing a web interface to make it easier for users to manage their notification preferences.
